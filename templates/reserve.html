@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Reserve a Book</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav_logo">
+          <h1><a href="/">The Book Arc</a></h1>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <!-- User Request Section -->
+      <section class="reserve-request-section">
+        <div class="request-form-container">
+          <h2>Reserve a Book</h2>
+          <form method="POST" action="/reserve_book" class="reserve-book-form">
+            <label for="isbn">ISBN:</label>
+            <input
+              type="text"
+              id="isbn"
+              name="isbn"
+              placeholder="Enter ISBN"
+              required
+            />
+
+            <label for="user_email">Your Email:</label>
+            <input
+              type="email"
+              id="user_email"
+              name="user_email"
+              placeholder="Enter your email"
+              required
+            />
+
+            <button type="submit" class="btn reserve-btn">Request Reservation</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Admin Approval Section -->
+      <section class="reserve-approval-section">
+        <div class="approval-table-container">
+          <h2>Pending Reservation Requests</h2>
+          <table class="approval-table">
+            <thead>
+              <tr>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>User Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for request in reservations %}
+              <tr>
+                <td>{{ request.book_name }}</td>
+                <td>{{ request.author }}</td>
+                <td>{{ request.isbn }}</td>
+                <td>{{ request.user_email }}</td>
+                <td>
+                  <form
+                    action="/approve_reservation"
+                    method="POST"
+                    style="display: inline"
+                  >
+                    <input
+                      type="hidden"
+                      name="isbn"
+                      value="{{ request.isbn }}"
+                    />
+                    <input
+                      type="hidden"
+                      name="user_email"
+                      value="{{ request.user_email }}"
+                    />
+                    <button type="submit" class="btn approve-btn">Approve</button>
+                  </form>
+                  <form
+                    action="/reject_reservation"
+                    method="POST"
+                    style="display: inline"
+                  >
+                    <input
+                      type="hidden"
+                      name="isbn"
+                      value="{{ request.isbn }}"
+                    />
+                    <input
+                      type="hidden"
+                      name="user_email"
+                      value="{{ request.user_email }}"
+                    />
+                    <button type="submit" class="btn reject-btn">Reject</button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
