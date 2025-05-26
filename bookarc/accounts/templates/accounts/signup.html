@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Sign Up</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-primary">Register</button>
+</form>
+<script>
+  // Show/hide librarian_code based on role
+  const roleField = document.getElementById('id_role');
+  const codeField = document.getElementById('id_librarian_code').parentNode;
+  function toggleCode() {
+    codeField.style.display = roleField.value === 'librarian' ? 'block' : 'none';
+  }
+  roleField.addEventListener('change', toggleCode);
+  toggleCode();
+</script>
+{% endblock %}

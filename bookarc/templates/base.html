@@ -1,0 +1,43 @@
+  {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BookArc</title>
+  <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-left">
+    <a class="navbar-brand" href="{% url 'books:home' %}">BookArc</a>
+  </div>
+
+  <div class="navbar-right">
+    <form class="search-form" method="get" action="{% url 'books:home' %}">
+      <input class="searchbar" name="q" placeholder="Search by title, author, genre" value="{{ q|default:'' }}">
+      <button class="default-btn" type="submit">Search</button>
+    </form>
+
+    <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+        {% if user.role == 'librarian' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'books:add_book' %}">Add Book</a>
+          </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+        </li>
+      {% else %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'accounts:signup' %}">Sign Up</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+<div class="container py-4">
+  {% block content %}{% endblock %}
+</div>
+</body>
+</html>
