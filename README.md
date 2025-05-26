@@ -1,6 +1,10 @@
 # BookArc Library Management System
 
-BookArc is a Django-based web application for managing and exploring a library’s collection of books. Featuring user roles (Reader & Librarian), secure authentication, book searching, and book management capabilities.
+BookArc is a Django-based web application **to manage and explore books of a library**. This project features interfaces for **both Readers and Librarians** with necessary functional requirements. 
+
+The idea of BookArc was originally generated while doing my **CSE370: Database Systems** course; I did the project with two of my teammates Zarif Abrar and Nafisa Tasnim. We did the project using **MySQL(MariaDB)** and **Flask**. You can view the previous version of [BookArc](https://github.com/Breeshty/The-BookArc) from here. This project had a lot of drawbacks.
+
+Now I am building the entire project from scratch using **Django framework**, resolving the bugs and with new features.
 
 ---
 
